@@ -34,7 +34,6 @@ export const TaskDetail = () => {
     high: "Alta",
   };
 
-  // Obtener tarea
   useEffect(() => {
     const fetchTask = async () => {
       try {
@@ -148,7 +147,6 @@ export const TaskDetail = () => {
   return (
   <div className=" min-h-screen p-10 flex justify-center items-start">
     <div className="bg-[#F1F9FF] w-full max-w-3xl rounded shadow-lg p-6 text-white">
-      {/* Botón volver */}
       <button
         onClick={() => navigate(ROUTES.DASHBOARD)}
         className="flex items-center mb-4 text-sm text-gray-600 hover:text-black hover:cursor-pointer"
@@ -156,25 +154,22 @@ export const TaskDetail = () => {
         <FiArrowLeft className="mr-2" /> Volver
       </button>
 
-      {/* Header tarea */}
       <h2 className="text-2xl text-black font-bold mb-6">
         {task.title}
       </h2>
 
-      {/* Botones tipo Trello */}
       <div className="flex flex-wrap gap-2 mb-6">
-      <div className="mb-2">
-        <span className="text-xs text-gray-500 block mb-1">Estado</span>
-        <span
-          className={`inline-block px-2 py-1 text-sm rounded ${getStatusClasses(
-            task.status
-          )}`}
-        >
-          {statusLabels[task.status] || task.status}
-        </span>
-      </div>
+        <div className="mb-2">
+          <span className="text-xs text-gray-500 block mb-1">Estado</span>
+          <span
+            className={`inline-block px-2 py-1 text-sm rounded ${getStatusClasses(
+              task.status
+            )}`}
+          >
+            {statusLabels[task.status] || task.status}
+          </span>
+        </div>
 
-        {/* Priority */}
         <div className="mb-2">
           <span className="text-xs text-gray-500 block mb-1">Prioridad</span>
           <span
@@ -196,7 +191,6 @@ export const TaskDetail = () => {
         </div>
       </div>
 
-      {/* Sección descripción */}
       <div className="bg-[#E1E9F0] rounded-lg p-4 mb-6">
         <h3 className="text-md text-black font-semibold mb-2">Descripción</h3>
         <p className="text-gray-800">
@@ -204,7 +198,6 @@ export const TaskDetail = () => {
         </p>
       </div>
 
-      {/* Modal usuarios */}
       {showUsers && (
         <div className="fixed inset-0 bg-black/50  flex justify-center items-center z-50">
           <div className="bg-white rounded-xl p-6 w-[400px] shadow-lg text-gray-800">
@@ -231,9 +224,7 @@ export const TaskDetail = () => {
         </div>
       )}
 
-      {/* Contenedor de botones */}
       <div className="flex gap-2">
-        {/* Botones según permisos */}
         {isAssigned && (
           <button
             className="hover:cursor-pointer border px-4 py-1 rounded-lg bg-[#282c34] text-white hover:bg-[#343a40] hover:scale-105 transition duration-200"
@@ -273,13 +264,12 @@ export const TaskDetail = () => {
             items-center z-[1000]
             "  > 
             <div className="mt-10 mb-10 max-h-[100vh] overflow-auto">
-           <TaskCard id={id} onClose={() => setEditing(false)} // cerrar modal 
+           <TaskCard id={id} onClose={() => setEditing(false)} 
            onUpdate={(updatedTask) => setTask(updatedTask)} /> 
             </div>
-           
           </div> 
         )}
     </div>
   </div>
-);
+  );
 };

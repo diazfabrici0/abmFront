@@ -74,9 +74,9 @@ export const TaskCard = ({ id, onClose, onUpdate }) => {
   };
 
   const handleCancel = () => {
-  if (onUpdate && task) onUpdate(task);
-  if (onClose) onClose();
-};
+    if (onUpdate && task) onUpdate(task);
+    if (onClose) onClose();
+  };
 
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>{error}</p>;
@@ -120,11 +120,11 @@ export const TaskCard = ({ id, onClose, onUpdate }) => {
   };
 
 
-    const statusOptions = [
-      { value: "pending", label: "Pendiente" },
-      { value: "in_progress", label: "En progreso" },
-      { value: "completed", label: "Completada" },
-    ];
+  const statusOptions = [
+    { value: "pending", label: "Pendiente" },
+    { value: "in_progress", label: "En progreso" },
+    { value: "completed", label: "Completada" },
+  ];
 
   const priorityOptions = [
     { value: "low", label: "Baja" },
@@ -195,34 +195,33 @@ export const TaskCard = ({ id, onClose, onUpdate }) => {
         </>
       )}
      <div className="mt-4 flex gap-4">
-  {/* Contenedor de usuarios asignados */}
-  <div className="bg-[#F1F9FF] w-[400px] rounded-xl p-6 text-gray-800">
-    <h3 className="text-lg font-semibold mb-4">Usuarios asignados</h3>
-    <ul className="space-y-2">
-      {task.users?.length > 0 ? (
-        task.users.map((u) => (
-          <li key={u.id} className="border-b border-gray-200 pb-2">
-            <span className="font-medium">{u.name}</span>{" "}
-            <span className="text-gray-500 text-sm">({u.email})</span>
-          </li>
-        ))
-      ) : (
-        <p className="text-gray-500">Ninguno</p>
-      )}
-    </ul>
-  </div>
+        {/* Contenedor de usuarios asignados */}
+        <div className="bg-[#F1F9FF] w-[400px] rounded-xl p-6 text-gray-800">
+          <h3 className="text-lg font-semibold mb-4">Usuarios asignados</h3>
+          <ul className="space-y-2">
+            {task.users?.length > 0 ? (
+              task.users.map((u) => (
+                <li key={u.id} className="border-b border-gray-200 pb-2">
+                  <span className="font-medium">{u.name}</span>{" "}
+                  <span className="text-gray-500 text-sm">({u.email})</span>
+                </li>
+              ))
+            ) : (
+              <p className="text-gray-500">Ninguno</p>
+            )}
+          </ul>
+        </div>
 
-  {/* UserSelect visible solo para admin */}
-  {user?.role === "admin" && (
-    <div className="w-[400px]">
-      <UserSelect
-        selectedUsers={selectedUsers}
-        setSelectedUsers={setSelectedUsers}
-      />
-    </div>
-  )}
-</div>
-
+          {/* UserSelect visible solo para admin */}
+          {user?.role === "admin" && (
+            <div className="w-[400px]">
+              <UserSelect
+                selectedUsers={selectedUsers}
+                setSelectedUsers={setSelectedUsers}
+              />
+            </div>
+          )}
+      </div>
       <div className="pt-3 space-x-2">
         <button
         onClick={handleSave}

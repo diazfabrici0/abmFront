@@ -5,5 +5,4 @@ export const ROUTES = {
     TASK_DETAIL: '/tasks/:id',
     TASK_FORM: '/tasks/new',
     USERS: '/users'
-    // agrega más rutas según sea necesario
 };

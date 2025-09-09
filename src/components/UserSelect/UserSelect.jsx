@@ -12,7 +12,7 @@ export const UserSelect = ({ selectedUsers, setSelectedUsers }) => {
   const [search, setSearch] = useState("");
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
-  // Cargar todos los usuarios (solo si es admin)
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -31,7 +31,6 @@ export const UserSelect = ({ selectedUsers, setSelectedUsers }) => {
     }
   }, [user]);
 
-  // Manejar selección
   const handleUserSelect = (id) => {
     setSelectedUsers((prev) =>
       prev.includes(id) ? prev.filter((uid) => uid !== id) : [...prev, id]
@@ -46,25 +45,21 @@ export const UserSelect = ({ selectedUsers, setSelectedUsers }) => {
   );
 }
 
-
   return (
     <div className="space-y-2">
       <h2 className="text-xl font-semibold">Asignar usuarios</h2>
       
-<div className="relative w-full">
-  {/* Icono */}
-  <CiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xl pointer-events-none" />
-
-  {/* Input */}
-  <input
-    type="text"
-    placeholder="Buscar usuario..."
-    value={search}
-    onChange={(e) => setSearch(e.target.value)}
-    className="border bg-[#F1F9FF] border-[#8B8C89] rounded-lg pl-10 pr-3 py-2 flex-1 min-w-[200px] focus:outline-none focus:border-[#274C77] transition duration-300 w-full"
-  />
-    </div>
-        <div className="bg-[#F1F9FF] w-full rounded-xl p-6 w-[400px] text-left text-gray-800">
+      <div className="relative w-full">
+        <CiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xl pointer-events-none" />
+        <input
+          type="text"
+          placeholder="Buscar usuario..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="border bg-[#F1F9FF] border-[#8B8C89] rounded-lg pl-10 pr-3 py-2 flex-1 min-w-[200px] focus:outline-none focus:border-[#274C77] transition duration-300 w-full"
+        />
+      </div>
+      <div className="bg-[#F1F9FF] w-full rounded-xl p-6 w-[400px] text-left text-gray-800">
         <table border="1" width="100%" cellPadding="8">
             <thead>
               <tr>
@@ -101,8 +96,7 @@ export const UserSelect = ({ selectedUsers, setSelectedUsers }) => {
                 ))}
             </tbody>
           </table>
-        </div>
-      
+      </div>
     </div>
   );
 };

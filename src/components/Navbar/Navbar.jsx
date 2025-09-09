@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { CiLogout } from "react-icons/ci";
 
 export const Navbar = () => {
-  const { user, logout } = useContext(AuthContext); // IMPORTANTE
+  const { user, logout } = useContext(AuthContext); 
   const navigate = useNavigate();
 
   if (!user) return null; // si no hay usuario logueado, no mostramos navbar

@@ -4,7 +4,6 @@ import api from "../../api/axios";
 import { AuthContext } from "../../context/AuthContext";
 import Select from "react-select";
 import { CiSearch } from "react-icons/ci";
-import axios from "axios";
 
 export const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
@@ -50,17 +49,17 @@ export const Dashboard = () => {
   ];
 
   const getStatusClasses = (status) => {
-  switch (status.toLowerCase()) {
-    case "pending":
-      return "bg-orange-100 text-orange-800";
-    case "completed":
-      return "bg-[#C4E6DA] text-green-800";
-    case "in_progress":
-      return "bg-blue-100 text-blue-800";
-    default:
-      return "bg-gray-100 text-gray-800";
-  }
-};
+    switch (status.toLowerCase()) {
+      case "pending":
+        return "bg-orange-100 text-orange-800";
+      case "completed":
+        return "bg-[#C4E6DA] text-green-800";
+      case "in_progress":
+        return "bg-blue-100 text-blue-800";
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
+  };
 
 const getPriorityClasses = (priority) => {
   switch (priority.toLowerCase()) {
@@ -143,13 +142,13 @@ const getPriorityClasses = (priority) => {
   }
 
 
-if (loading) {
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-    </div>
-  );
-}
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   if (error) return <p>{error}</p>;
 
@@ -182,12 +181,9 @@ const filteredTasks = baseTasks.filter((t) => {
 
   {/* Contenedor de búsqueda y filtros */}
   <div className="flex flex-wrap gap-4 items-center mb-4">
-    {/* Buscador */}
     <div className="relative flex-1 min-w-[250px]">
-      {/* Icono */}
       <CiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xl pointer-events-none" />
 
-      {/* Input */}
       <input
         type="text"
         placeholder="Buscar tarea..."
@@ -197,7 +193,6 @@ const filteredTasks = baseTasks.filter((t) => {
       />
     </div>
 
-    {/* Filtros */}
     <Select
       value={statusOptions.find((o) => o.value === status)}
       onChange={(option) => setStatus(option.value)}
@@ -220,7 +215,6 @@ const filteredTasks = baseTasks.filter((t) => {
       className="w-48"
     />
 
-    {/* Botón Limpiar */}
     <button
       onClick={() => {
         setSearch("");
@@ -233,52 +227,49 @@ const filteredTasks = baseTasks.filter((t) => {
       Limpiar filtros
     </button>
   </div>
-{/* Lista de tareas */}
-{sortedTasks.length === 0 ? (
-  <p>No se encontraron tareas</p>
-) : (
-  <div className="grid grid-cols-2 gap-4">
-    {sortedTasks.map((task) => (
-      <Link to={`/tasks/${task.id}`} key={task.id} className="no-underline">
+    {sortedTasks.length === 0 ? (
+      <p>No se encontraron tareas</p>
+    ) : (
+      <div className="grid grid-cols-2 gap-4">
+        {sortedTasks.map((task) => (
+          <Link to={`/tasks/${task.id}`} key={task.id} className="no-underline">
 
-      <div
-        key={task.id}
-        className="bg-[#F1F9FF] border border-gray-400 rounded p-6 space-y-3 hover:scale-101 transition-transform duration-200 shadow-md"
-      >
-        <h3 className="text-lg font-semibold">
-          <span>
-            {task.title}
-          </span>
-        </h3>
-        
-        <span
-          className={`inline-block px-2 py-1 text-sm rounded mr-2 ${getStatusClasses(
-          task.status
-          )}`}
-        >
-        {statusLabels[task.status] || task.status}
-        </span>
+          <div
+            key={task.id}
+            className="bg-[#F1F9FF] border border-gray-400 rounded p-6 space-y-3 hover:scale-101 transition-transform duration-200 shadow-md"
+          >
+            <h3 className="text-lg font-semibold">
+              <span>
+                {task.title}
+              </span>
+            </h3>
+            
+            <span
+              className={`inline-block px-2 py-1 text-sm rounded mr-2 ${getStatusClasses(
+              task.status
+              )}`}
+            >
+            {statusLabels[task.status] || task.status}
+            </span>
 
-        {/* Priority */}
-        <span
-          className={`inline-block px-2 py-1 text-sm rounded ${getPriorityClasses(
-            task.priority
-          )}`}
-        >
-          {priorityLabels[task.priority] || task.priority}
-        </span>
+            <span
+              className={`inline-block px-2 py-1 text-sm rounded ${getPriorityClasses(
+                task.priority
+              )}`}
+            >
+              {priorityLabels[task.priority] || task.priority}
+            </span>
 
-        <p>
-          {" "}
-          {task.users?.map((u) => u.name).join(", ") || "Ninguno"}
-        </p>
+            <p>
+              {" "}
+              {task.users?.map((u) => u.name).join(", ") || "Ninguno"}
+            </p>
+          </div>
+          </Link>
+          
+        ))}
       </div>
-      </Link>
-      
-    ))}
+    )}
   </div>
-)}
-  </div>
-);
-
+  );
 };

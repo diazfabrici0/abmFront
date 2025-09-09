@@ -109,72 +109,68 @@ export const TaskForm = () => {
     { value: "high", label: "Alta" },
   ];
 
-return (
-  <div className="min-h-screen flex items-center justify-center ">
-    <div className="p-7 space-y-3 bg-white rounded shadow-md w-[600px]">
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <h2 className="text-2xl font-semibold">Crear Nueva Tarea</h2>
-        {message && <p>{message}</p>}
+  return (
+    <div className="min-h-screen flex items-center justify-center ">
+      <div className="p-7 space-y-3 bg-white rounded shadow-md w-[600px]">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <h2 className="text-2xl font-semibold">Crear Nueva Tarea</h2>
+          {message && <p>{message}</p>}
 
-        <label className="text-gray-500 block mb-1">Título</label>
-        <input
-          type="text"
-          placeholder="Ingrese un título"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="border-b-2 border-gray-300 focus-within:border-[#274C77] transition duration-300 focus:outline-none w-full"
-          required
-        />
+          <label className="text-gray-500 block mb-1">Título</label>
+          <input
+            type="text"
+            placeholder="Ingrese un título"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="border-b-2 border-gray-300 focus-within:border-[#274C77] transition duration-300 focus:outline-none w-full"
+            required
+          />
 
-        <label className="text-gray-500 block mb-1">Descripción</label>
-        <textarea
-          placeholder="Ingrese una descripción"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="border-b-2 border-gray-300 focus-within:border-[#274C77] transition duration-300 focus:outline-none w-full"
-        />
+          <label className="text-gray-500 block mb-1">Descripción</label>
+          <textarea
+            placeholder="Ingrese una descripción"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="border-b-2 border-gray-300 focus-within:border-[#274C77] transition duration-300 focus:outline-none w-full"
+          />
 
-        <div className="flex gap-4">
-          {/* Estado */}
-          <div className="flex flex-col">
-            <label className="text-gray-500 block mb-1">Estado</label>
-            <Select
-              value={statusOptions.find(option => option.value === status)}
-              onChange={(selectedOption) => setStatus(selectedOption.value)}
-              options={statusOptions}
-              styles={customStyles}
-              className="w-48"
-            />
+          <div className="flex gap-4">
+            <div className="flex flex-col">
+              <label className="text-gray-500 block mb-1">Estado</label>
+              <Select
+                value={statusOptions.find(option => option.value === status)}
+                onChange={(selectedOption) => setStatus(selectedOption.value)}
+                options={statusOptions}
+                styles={customStyles}
+                className="w-48"
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <label className="text-gray-500 block mb-1">Prioridad</label>
+              <Select
+                value={priorityOptions.find(option => option.value === priority)}
+                onChange={(selectedOption) => setPriority(selectedOption.value)}
+                options={priorityOptions}
+                styles={customStyles}
+                className="w-48"
+              />
+            </div>
           </div>
 
-          {/* Prioridad */}
-          <div className="flex flex-col">
-            <label className="text-gray-500 block mb-1">Prioridad</label>
-            <Select
-              value={priorityOptions.find(option => option.value === priority)}
-              onChange={(selectedOption) => setPriority(selectedOption.value)}
-              options={priorityOptions}
-              styles={customStyles}
-              className="w-48"
-            />
-          </div>
-        </div>
+          <UserSelect
+            selectedUsers={selectedUsers}
+            setSelectedUsers={setSelectedUsers}
+          />
 
-        {/* Asignar usuarios */}
-        <UserSelect
-          selectedUsers={selectedUsers}
-          setSelectedUsers={setSelectedUsers}
-        />
-
-        <button
-          type="submit"
-          className="px-4 py-2 bg-[#282c34] text-white rounded-lg hover:bg-[#343a40] hover:scale-105 transition duration-200"
-        >
-          Crear Tarea
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="px-4 py-2 bg-[#282c34] text-white rounded-lg hover:bg-[#343a40] hover:scale-105 transition duration-200"
+          >
+            Crear Tarea
+          </button>
+        </form>
+      </div>
     </div>
-  </div>
-);
-
+  );
 };
