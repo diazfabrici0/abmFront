@@ -111,7 +111,7 @@ export const TaskForm = () => {
 
 return (
   <div className="min-h-screen flex items-center justify-center ">
-    <div className="p-7 space-y-3 bg-white rounded shadow-md w-225">
+    <div className="p-7 space-y-3 bg-white rounded shadow-md w-[600px]">
       <form onSubmit={handleSubmit} className="space-y-6">
         <h2 className="text-2xl font-semibold">Crear Nueva Tarea</h2>
         {message && <p>{message}</p>}
@@ -134,41 +134,37 @@ return (
           className="border-b-2 border-gray-300 focus-within:border-[#274C77] transition duration-300 focus:outline-none w-full"
         />
 
-<div className="flex gap-4">
-  {/* Estado */}
-  <div className="flex flex-col">
-    <label className="text-gray-500 block mb-1">Estado</label>
-    <Select
-      value={statusOptions.find(option => option.value === status)}
-      onChange={(selectedOption) => setStatus(selectedOption.value)}
-      options={statusOptions}
-      styles={customStyles}
-      className="w-48"
-    />
-  </div>
+        <div className="flex gap-4">
+          {/* Estado */}
+          <div className="flex flex-col">
+            <label className="text-gray-500 block mb-1">Estado</label>
+            <Select
+              value={statusOptions.find(option => option.value === status)}
+              onChange={(selectedOption) => setStatus(selectedOption.value)}
+              options={statusOptions}
+              styles={customStyles}
+              className="w-48"
+            />
+          </div>
 
-  {/* Prioridad */}
-  <div className="flex flex-col">
-    <label className="text-gray-500 block mb-1">Prioridad</label>
-    <Select
-      value={priorityOptions.find(option => option.value === priority)}
-      onChange={(selectedOption) => setPriority(selectedOption.value)}
-      options={priorityOptions}
-      styles={customStyles}
-      className="w-48"
-    />
-  </div>
+          {/* Prioridad */}
+          <div className="flex flex-col">
+            <label className="text-gray-500 block mb-1">Prioridad</label>
+            <Select
+              value={priorityOptions.find(option => option.value === priority)}
+              onChange={(selectedOption) => setPriority(selectedOption.value)}
+              options={priorityOptions}
+              styles={customStyles}
+              className="w-48"
+            />
+          </div>
+        </div>
 
-  {/* Asignar usuarios */}
-  <div className="flex-1 flex flex-col">
-    <label className="text-gray-500 block mb-1">Asignar usuarios</label>
-    <UserSelect
-      selectedUsers={selectedUsers}
-      setSelectedUsers={setSelectedUsers}
-    />
-  </div>
-</div>
-
+        {/* Asignar usuarios */}
+        <UserSelect
+          selectedUsers={selectedUsers}
+          setSelectedUsers={setSelectedUsers}
+        />
 
         <button
           type="submit"

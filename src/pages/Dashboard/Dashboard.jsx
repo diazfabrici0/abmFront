@@ -4,6 +4,7 @@ import api from "../../api/axios";
 import { AuthContext } from "../../context/AuthContext";
 import Select from "react-select";
 import { CiSearch } from "react-icons/ci";
+import axios from "axios";
 
 export const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
@@ -116,9 +117,10 @@ const getPriorityClasses = (priority) => {
 
     const fetchTasks = async () => {
       try {
-        const res = await api.get("/tasks", {
+        const res = await api.get("tasks", {
           headers: { Authorization: `Bearer ${auth_token}` },
         });
+        console.log(res)
         setTasks(res.data);
       } catch (err) {
         console.error(err);
@@ -151,21 +153,22 @@ if (loading) {
 
   if (error) return <p>{error}</p>;
 
-  const baseTasks =
-    user.role === "admin"
-      ? tasks
-      : tasks.filter((task) => task.users?.some((u) => u.id === user.id));
+  const baseTasks = Array.isArray(tasks)
+  ? user.role === "admin"
+    ? tasks
+    : tasks.filter((task) => task.users?.some((u) => u.id === user.id))
+  : [];
 
-  const filteredTasks = baseTasks.filter((t) => {
-    const matchesSearch =
-      t.title.toLowerCase().includes(search.toLowerCase()) ||
-      (t.description || "").toLowerCase().includes(search.toLowerCase());
+const filteredTasks = baseTasks.filter((t) => {
+  const matchesSearch =
+    t.title.toLowerCase().includes(search.toLowerCase()) ||
+    (t.description || "").toLowerCase().includes(search.toLowerCase());
 
-    const matchesStatus = status ? t.status === status : true;
-    const matchesPriority = priority ? t.priority === priority : true;
+  const matchesStatus = status ? t.status === status : true;
+  const matchesPriority = priority ? t.priority === priority : true;
 
-    return matchesSearch && matchesStatus && matchesPriority;
-  });
+  return matchesSearch && matchesStatus && matchesPriority;
+});
 
   const sortedTasks = filteredTasks.sort((a, b) => {
     const dateA = new Date(a.created_at);

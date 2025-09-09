@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import api from "../../api/axios";
+import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import Swal from "sweetalert2";
 import { CiSearch } from "react-icons/ci";
@@ -23,9 +24,11 @@ export const Users = () => {
 
     const fetchUsers = async () => {
       try {
-        const res = await api.get("/users", {
+        const res = await api.get("users", {
           headers: { Authorization: `Bearer ${localStorage.getItem("auth_token")}` },
         });
+        console.log(res.data);
+        console.log(res);
         setUsers(res.data);
       } catch (err) {
         setError("Error al obtener usuarios");
@@ -74,12 +77,15 @@ export const Users = () => {
 
   };
 
-    const filteredUsers = users.filter(
-    (u) =>
-      u.name.toLowerCase().includes(search.toLowerCase()) ||
-      u.email.toLowerCase().includes(search.toLowerCase()) ||
-      u.role.toLowerCase().includes(search.toLowerCase())
-  );
+const filteredUsers = Array.isArray(users)
+  ? users.filter(
+      (u) =>
+        u.name.toLowerCase().includes(search.toLowerCase()) ||
+        u.email.toLowerCase().includes(search.toLowerCase()) ||
+        u.role.toLowerCase().includes(search.toLowerCase())
+    )
+  : [];
+
 
 
   if (error) return <p>{error}</p>;
