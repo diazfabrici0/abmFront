@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+body{
+ @apply bg-[#E7ECEF] 
+ text-gray-900 
+ font-sans antialiased
+ text-base leading-relaxed
+ min-h-screen flex flex-col;
+}
